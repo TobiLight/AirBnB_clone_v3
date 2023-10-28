@@ -11,6 +11,8 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+import shlex
+
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -68,3 +70,35 @@ class FileStorage:
     def close(self):
         """call reload() method for deserializing the JSON file to objects"""
         self.reload()
+
+    def get(self, cls, id):
+        """
+        Gets and returns the object based on the class and its ID
+
+        Args:
+            cls (object): Class
+            id (string): String representing the object ID
+
+        Returns:
+            The object based on the class and its ID, or None if not found
+        """
+        if cls in classes.values() and type(id) is str:
+            classname = shlex.split(str(cls))[1].strip(">").split(".")[2]
+            key = classname + "." + id
+            return self.all()[key]
+
+    def count(self, cls=None):
+        """
+        Returns the number of objects in storage matching the given class.
+
+        Args:
+            cls (object, optional): Class
+
+        Returns:
+            The number of objects in storage matching the given class.
+            If no class is passed, returns the count of all objects in storage.
+        """
+        count = self.all(cls)
+        if cls in classes.values():
+            count = self.all(cls)
+        return len(count)
