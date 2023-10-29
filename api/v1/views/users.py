@@ -57,7 +57,7 @@ def create_user():
 
     if 'email' not in data_body:
         abort(400, "Missing email")
-        
+
     if 'password' not in data_body:
         abort(400, "Missing password")
 
