@@ -55,8 +55,11 @@ def create_user():
     if not data_body:
         abort(400, "Not a JSON")
 
-    if 'name' not in data_body:
-        abort(400, "Missing name")
+    if 'email' not in data_body:
+        abort(400, "Missing email")
+        
+    if 'password' not in data_body:
+        abort(400, "Missing password")
 
     from models.user import User
     user = User(**data_body)
