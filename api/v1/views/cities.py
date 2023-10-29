@@ -59,7 +59,7 @@ def create_city(state_id):
     """
     from models.state import State
     state = storage.get(State, state_id)
-    
+
     if state is None:
         abort(404)
     data_body = request.get_json(force=True, silent=True)
