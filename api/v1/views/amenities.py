@@ -71,8 +71,8 @@ def update_amenity(amenity_id):
     """
     Updates a amenity object
     """
-    from models.amenity import amenity
-    amenity = storage.get(amenity, amenity_id)
+    from models.amenity import Amenity
+    amenity = storage.get(Amenity, amenity_id)
 
     if amenity is None:
         abort(404)
