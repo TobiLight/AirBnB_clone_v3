@@ -11,6 +11,8 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+import shlex
+
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -55,7 +57,7 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+        except Exception as e:
             pass
 
     def delete(self, obj=None):
@@ -68,3 +70,47 @@ class FileStorage:
     def close(self):
         """call reload() method for deserializing the JSON file to objects"""
         self.reload()
+
+    def get(self, cls, id):
+        """
+        Gets and returns the object based on the class and its ID
+
+        Args:
+            cls (object): Class
+            id (string): String representing the object ID
+
+        Returns:
+            The object based on the class and its ID, or None if not found
+        """
+        # if cls in classes.values() and type(id) is str:
+        #     classname = shlex.split(str(cls))[1].strip(">").split(".")[2]
+        #     key = classname + "." + id
+        #     return self.all()[key]
+        if cls:
+            for value in self.__objects.values():
+                if cls == value.__class__ or cls == value.__class__.__name__:
+                    if id == value.id:
+                        return value
+        return None
+
+    def count(self, cls=None):
+        """
+        Returns the number of objects in storage matching the given class.
+
+        Args:
+            cls (object, optional): Class
+
+        Returns:
+            The number of objects in storage matching the given class.
+            If no class is passed, returns the count of all objects in storage.
+        """
+        # count = self.all(cls)
+        # if cls in classes.values():
+        #     count = self.all(cls)
+        # return len(count)
+        if cls:
+            # all_objs_dict = self.all(cls)
+            count = len(self.all(cls))
+        else:
+            count = len(self.all())
+        return count
