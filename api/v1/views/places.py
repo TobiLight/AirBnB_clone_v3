@@ -81,7 +81,7 @@ def create_place(city_id):
 
     from models.place import Place
     place = Place(**data_body)
-    place.city_id = city_id
+    place['city_id'] = city_id
     place.save()
     return jsonify(place.to_dict()), 201
 
