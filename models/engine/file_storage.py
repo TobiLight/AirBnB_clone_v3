@@ -82,10 +82,15 @@ class FileStorage:
         Returns:
             The object based on the class and its ID, or None if not found
         """
-        if cls in classes.values() and type(id) is str:
-            classname = shlex.split(str(cls))[1].strip(">").split(".")[2]
-            key = classname + "." + id
-            return self.all()[key]
+        # if cls in classes.values() and type(id) is str:
+        #     classname = shlex.split(str(cls))[1].strip(">").split(".")[2]
+        #     key = classname + "." + id
+        #     return self.all()[key]
+        if cls:
+            for value in self.__objects.values():
+                if cls == value.__class__ or cls == value.__class__.__name__:
+                    if id == value.id:
+                        return value
         return None
 
     def count(self, cls=None):
@@ -99,7 +104,13 @@ class FileStorage:
             The number of objects in storage matching the given class.
             If no class is passed, returns the count of all objects in storage.
         """
-        count = self.all(cls)
-        if cls in classes.values():
-            count = self.all(cls)
-        return len(count)
+        # count = self.all(cls)
+        # if cls in classes.values():
+        #     count = self.all(cls)
+        # return len(count)
+        if cls:
+            # all_objs_dict = self.all(cls)
+            count = len(self.all(cls))
+        else:
+            count = len(self.all())
+        return count
