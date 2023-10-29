@@ -35,7 +35,7 @@ def get_user(user_id):
                  strict_slashes=False)
 def delete_user(user_id):
     """
-    Deletes an User object
+    Deletes a User object
     """
     from models.user import User
     user = storage.get(User, user_id)
@@ -49,7 +49,7 @@ def delete_user(user_id):
 @app_views.route("/users", methods=["POST"], strict_slashes=False)
 def create_user():
     """
-    Creates an User
+    Creates a User
     """
     data_body = request.get_json(force=True, silent=True)
     if not data_body:
@@ -68,7 +68,7 @@ def create_user():
                  strict_slashes=False)
 def update_user(user_id):
     """
-    Updates a user object
+    Updates a User object
     """
     from models.user import User
     user = storage.get(User, user_id)
