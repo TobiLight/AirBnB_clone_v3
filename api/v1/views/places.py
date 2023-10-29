@@ -70,17 +70,17 @@ def create_place(city_id):
     if 'user_id' not in data_body:
         abort(400, "Missing user_id")
 
-    if 'name' not in data_body:
-        abort(400, "Missing name")
-
     from models.user import User
     user = storage.get(User, data_body.get("user_id"))
 
     if user is None:
         abort(404)
+        
+    if 'name' not in data_body:
+        abort(400, "Missing name")
 
     from models.place import Place
-    place = City(**data_body)
+    place = Place(**data_body)
     place.user_id = user.id
     place.save()
     return jsonify(place.to_dict()), 201
