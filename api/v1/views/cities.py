@@ -53,10 +53,15 @@ def delete_city(city_id):
 
 
 @app_views.route("/states/<path:state_id>/cities", methods=["POST"], strict_slashes=False)
-def create_city():
+def create_city(state_id):
     """
     Creates a City
     """
+    from models.state import State
+    state = storage.get(State, state_id)
+    
+    if state is None:
+        abort(404)
     data_body = request.get_json(force=True, silent=True)
     if not data_body:
         abort(400, "Not a JSON")
@@ -66,6 +71,7 @@ def create_city():
 
     from models.city import City
     city = City(**data_body)
+    city.state_id = state.id
     city.save()
     return jsonify(city.to_dict()), 201
 
