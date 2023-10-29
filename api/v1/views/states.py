@@ -58,7 +58,7 @@ def create_state():
         abort(400, "Missing name")
 
     from models.state import State
-    state = State(**data_body)
+    state = State(data_body)
     state.save()
     return jsonify(state.to_dict()), 201
 
