@@ -104,9 +104,10 @@ def update_review(review_id):
     if not data_body:
         abort(400, "Not a JSON")
 
-    for key, value in data_body.items():
-        if key not in ["id", "user_id", "place_id", "created_at",
-                       "updated_at"]:
-            setattr(review, key, value)
+    # for key, value in data_body.items():
+    #     if key not in ["id", "user_id", "place_id", "created_at",
+    #                    "updated_at"]:
+    #         setattr(review, key, value)
+    review.text = data_body.get("text", review.text)
     review.save()
     return jsonify(review.to_dict()), 200
