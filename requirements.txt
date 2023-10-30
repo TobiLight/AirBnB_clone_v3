@@ -5,6 +5,7 @@ cffi==1.16.0
 click==8.1.7
 cryptography==2.8
 flask==3.0.0
+Flask-Cors==4.0.0
 Flask-MySQLdb==2.0.0
 greenlet==3.0.0
 importlib-metadata==6.8.0
