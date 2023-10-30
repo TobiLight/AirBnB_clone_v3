@@ -32,6 +32,7 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != "__class__":
                     setattr(self, key, value)
+                    
             if kwargs.get("created_at", None) and type(self.created_at) is str:
                 self.created_at = datetime.strptime(kwargs["created_at"], time)
             else:
@@ -68,6 +69,11 @@ class BaseModel:
         new_dict["__class__"] = self.__class__.__name__
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
+        
+        # check if password key is in object
+        if "password" in new_dict:
+            # delete the password field
+            del new_dict["password"]
         return new_dict
 
     def delete(self):
