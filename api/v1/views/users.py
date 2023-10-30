@@ -62,10 +62,10 @@ def create_user():
         abort(400, "Missing password")
 
     from models.user import User
-    existing_user = storage.all('User')
-    for k, v in existing_user.items():
-        if data_body['email'] in v.to_dict()['email']:
-            return jsonify(v.to_dict()), 201
+    # existing_user = storage.all('User')
+    # for k, v in existing_user.items():
+    #     if data_body['email'] in v.to_dict()['email']:
+    #         return jsonify(v.to_dict()), 201
     user = User(**data_body)
     user.save()
     return jsonify(user.to_dict()), 201
