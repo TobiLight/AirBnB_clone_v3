@@ -74,9 +74,9 @@ class BaseModel:
             del new_dict["_sa_instance_state"]
 
         # check if password key is in object
-        if "password" in new_dict:
-            # delete the password field
-            del new_dict["password"]
+        # if "password" in new_dict:
+        #     # delete the password field
+        #     del new_dict["password"]
         return new_dict
 
     def delete(self):
