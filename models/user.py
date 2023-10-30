@@ -30,7 +30,7 @@ class User(BaseModel, Base):
         """initializes user"""
         super().__init__(*args, **kwargs)
 
-    def __setattr__(self, __k: str, __v Any):
+    def __setattr__(self, __k, __v):
         """Hashes and sets password with md5 encryption"""
         if __k == "password":
             __v = hashlib.md5(str(__v).encode()).hexdigest()
