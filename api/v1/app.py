@@ -7,7 +7,6 @@ import os
 from flask_cors import CORS
 
 
-
 app = Flask(__name__)
 # Create a CORS instance and allow all origins
 CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
