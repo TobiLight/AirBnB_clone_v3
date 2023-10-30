@@ -10,6 +10,7 @@ import sqlalchemy
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 import uuid
+import hashlib
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
 
@@ -32,6 +33,8 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != "__class__":
                     setattr(self, key, value)
+                if key == "password":
+                    value = hashlib.md5(value.encode()).hexdigest()
 
             if kwargs.get("created_at", None) and type(self.created_at) is str:
                 self.created_at = datetime.strptime(kwargs["created_at"], time)
@@ -71,7 +74,7 @@ class BaseModel:
             del new_dict["_sa_instance_state"]
 
         # check if password key is in object
-        if "password" in new_dict:
+        if "password" in new_dict and getenv("HBNB_TYPE_STORAGE") != 'db':
             # delete the password field
             del new_dict["password"]
         return new_dict
