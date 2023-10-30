@@ -84,11 +84,11 @@ def update_user(user_id):
     if not data_body:
         abort(400, "Not a JSON")
 
-    # user.first_name = data_body.get("first_name", user.first_name)
-    # user.last_name = data_body.get("last_name", user.last_name)
-    # user.password = data_body.get("password", user.password)
-    for k, v in data_body.items():
-        if k not in ["id", "email", "created_at", "updated_at"]:
-            setattr(user, k, v)
+    user.first_name = data_body.get("first_name", user.first_name)
+    user.last_name = data_body.get("last_name", user.last_name)
+    user.password = data_body.get("password", user.password)
+    # for k, v in data_body.items():
+    #     if k not in ["id", "email", "created_at", "updated_at"]:
+    #         setattr(user, k, v)
     user.save()
     return jsonify(user.to_dict()), 200
