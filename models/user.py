@@ -34,4 +34,4 @@ class User(BaseModel, Base):
         """Hashes and sets password with md5 encryption"""
         if __k == "password":
             __v = hashlib.md5(str(__v).encode()).hexdigest()
-        super().__setattr__(__k, __v)
+        return super().__setattr__(__k, __v)
