@@ -75,6 +75,7 @@ def create_review(place_id):
     if 'text' not in data_body:
         abort(400, "Missing text")
 
+    data_body['place_id'] = place_id
     from models.user import User
     user = storage.get(User, data_body['user_id'])
 
