@@ -60,7 +60,7 @@ class BaseModel:
         models.storage.new(self)
         models.storage.save()
 
-    def to_dict(self):
+    def to_dict(self, save_to_fs=False):
         """returns a dictionary containing all keys/values of the instance"""
         new_dict = self.__dict__.copy()
         if "created_at" in new_dict:
@@ -72,9 +72,8 @@ class BaseModel:
             del new_dict["_sa_instance_state"]
 
         # check if password key is in object
-        if "password" in new_dict:
-            # delete the password field
-            del new_dict["password"]
+        if not save_to_fs and new_dict["__class__"] == 'User':
+            new_dict.pop('password', None)
         return new_dict
 
     def delete(self):
