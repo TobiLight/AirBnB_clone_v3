@@ -179,7 +179,7 @@ def places_search():
                 places_in_city.append(place.to_dict())
 
         places_in_state = [place for place in places_in_city]
-        
+
         # get all places in a city
         places = []
         places_in_cities = []
