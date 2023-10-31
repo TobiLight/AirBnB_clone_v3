@@ -162,5 +162,3 @@ class TestFileStorageMethods(unittest.TestCase):
         count_state = models.storage.count(State)
         self.assertEqual(total, count_total)
         self.assertEqual(total_state, count_state)
-
-
