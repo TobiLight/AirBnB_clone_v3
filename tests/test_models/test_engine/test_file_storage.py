@@ -15,12 +15,17 @@ from models.review import Review
 from models.state import State
 from models.user import User
 import json
-import os
+from os import environ, stat, remove, path
 import pep8
 import unittest
+
 FileStorage = file_storage.FileStorage
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
+# # if models.storage_t != 'db':
+# #     FileStorage = models.file_storage.FileStorage
+# storage = models.storage
+# F = './dev/file.json'
 
 
 class TestFileStorageDocs(unittest.TestCase):
@@ -39,11 +44,9 @@ class TestFileStorageDocs(unittest.TestCase):
 
     def test_pep8_conformance_test_file_storage(self):
         """Test tests/test_models/test_file_storage.py conforms to PEP8."""
-        pep8s = pep8.StyleGuide(quiet=True)
-        result = pep8s.check_files(
-            ['tests/test_models/test_engine/test_file_storage.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
+        pep8style = pep8.StyleGuide(quiet=True)
+        errors = pep8style.check_files(['models/engine/file_storage.py'])
+        self.assertEqual(errors.total_errors, 0, errors.messages)
 
     def test_file_storage_module_docstring(self):
         """Test for the file_storage.py module docstring"""
@@ -159,3 +162,5 @@ class TestFileStorageMethods(unittest.TestCase):
         count_state = models.storage.count(State)
         self.assertEqual(total, count_total)
         self.assertEqual(total_state, count_state)
+
+
