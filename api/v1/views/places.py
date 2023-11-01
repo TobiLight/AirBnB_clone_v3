@@ -193,15 +193,4 @@ def places_search():
         places_in_city = [place for place in places_in_cities]
         places_cities_states = places_in_state + places_in_city
         return jsonify(places_cities_states), 200
-    if len(amenities) > 0 and len(states) > 0 and len(cities) > 0:
-      amenities_places = []
-      for places in places_cities_states:
-        if places['id'] in amenities:
-          amenities_places.append(places)
-      return jsonify(amenities_places), 200
-    else:
-      amenities_places = []
-      for places in places_cities_states:
-        if places['id'] in amenities:
-          amenities_places.append(places)
-      return jsonify(amenities_places), 200
+    return jsonify(amenities_places), 200
