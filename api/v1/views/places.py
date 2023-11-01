@@ -191,7 +191,6 @@ def places_search():
 
         places_in_city = [place for place in places_in_cities]
         places_cities_states = places_in_state + places_in_city
-        print(len(places_cities_states))
         return jsonify(places_cities_states), 200
 
     return jsonify({}), 200
