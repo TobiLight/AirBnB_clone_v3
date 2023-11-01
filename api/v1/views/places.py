@@ -187,9 +187,9 @@ def places_search():
 
     places = []
     for place in list_of_places:
-        place = place.to_dict()
-        place.pop("amenities", None)
-        places.append(place)
+        place_ = place.to_dict()
+        place_.pop("amenities", None)
+        places.append(place_)
 
     # I prefer using this (list comprehension)
     #   but i'll leave it for future reference
