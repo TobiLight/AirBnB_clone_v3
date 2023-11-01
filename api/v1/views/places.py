@@ -129,7 +129,7 @@ def places_search():
     amenities = data_body.get("amenities", [])
 
     if not data_body or len(data_body) < 1 or not states\
-            and cities and amenities:
+            and not cities and not amenities:
         from models.place import Place
         places = storage.all(Place).values()
         list_of_places = [place.to_dict() for place in places]
