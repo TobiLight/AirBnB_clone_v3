@@ -127,14 +127,15 @@ def places_search():
     states = data_body.get("states", [])
     cities = data_body.get("cities", [])
     amenities = data_body.get("amenities", [])
-    list_of_places = []
 
     if not data_body or len(data_body) < 1 or not states\
             and cities and amenities:
         from models.place import Place
-        places_list = storage.all(Place).values()
-        places = [place.to_dict() for place in places_list]
-        return jsonify(places), 200
+        places = storage.all(Place).values()
+        list_of_places = [place.to_dict() for place in places]
+        return jsonify(list_of_places), 200
+
+    list_of_places = []
 
     # if states is specified and cities isnt
     if len(states) > 0:
@@ -147,10 +148,11 @@ def places_search():
         places_in_city = []
         for city_in_state in cities_in_states:
             for place in city_in_state.places:
-                places_in_city.append(place)
+                list_of_places.append(place)
+                # places_in_city.append(place)
 
-        for place in places_in_city:
-            list_of_places.append(place)
+        # for place in places_in_city:
+            # list_of_places.append(place)
 
     # if cities is specified and states isnt
     if len(cities) > 0:
